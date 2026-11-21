@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BETA SEARCH - Search Smarter</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;font-family:Inter,system-ui,Arial,sans-serif}
+body{background:#fff;color:#111}
+header{display:flex;justify-content:space-between;align-items:center;padding:14px 20px}
+.logo{font-size:28px;font-weight:900;letter-spacing:-1px}
+.logo span{background:linear-gradient(90deg,#2563eb,#9333ea,#06b6d4);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.nav a{margin:0 10px;color:#444;text-decoration:none;font-size:14px}
+.nav button{background:#2563eb;color:#fff;border:0;padding:8px 16px;border-radius:20px;cursor:pointer}
+.hero{text-align:center;padding:60px 16px 20px}
+.hero h1{font-size:64px;line-height:1}
+.hero h1 span{background:linear-gradient(90deg,#2563eb,#9333ea,#06b6d4);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.hero p{color:#666;margin-top:10px}
+.search-wrap{max-width:720px;margin:24px auto;display:flex;align-items:center;border:1px solid #ddd;border-radius:999px;padding:6px 8px 6px 18px;box-shadow:0 4px 20px rgba(0,0,0,.08)}
+.search-wrap input{flex:1;border:0;outline:0;font-size:18px;padding:10px}
+.search-wrap button{border:0;background:#2563eb;color:#fff;padding:10px 18px;border-radius:999px;cursor:pointer;font-weight:700}
+.chips{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin:16px}
+.chip{background:#f1f5f9;border:1px solid #e2e8f0;padding:8px 12px;border-radius:999px;cursor:pointer;font-size:13px}
+.main{max-width:1100px;margin:20px auto;padding:0 16px;display:grid;grid-template-columns:1fr 340px;gap:20px}
+.card{border:1px solid #e5e7eb;border-radius:16px;padding:18px;margin-bottom:16px;background:#fff}
+.ai{background:linear-gradient(135deg,#eff6ff,#fdf4ff);border-color:#c7d2fe}
+.ai h3{color:#4f46e5}
+.result h3{color:#1a0dab;cursor:pointer}
+.result small{color:#006621}
+.kp img{width:100%;height:180px;object-fit:cover;border-radius:12px;background:#ddd}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.person{border:1px solid #eee;border-radius:14px;padding:12px;cursor:pointer;text-align:center}
+.person b{font-size:28px}
+footer{text-align:center;color:#888;padding:30px;font-size:13px}
+@media(max-width:800px){.main{grid-template-columns:1fr}.hero h1{font-size:44px}.grid{grid-template-columns:1fr 1fr}}
+</style>
+</head>
+<body>
+<header><div class="logo">🔍 <span>β BETA SEARCH</span></div><div class="nav"><a href="#" onclick="showHome()">Home</a><a href="#" onclick="doSearch('news')">News</a><a href="#" onclick="doSearch('weather Nairobi')">Weather</a><button onclick="alert('BETA SEARCH - Made in Nairobi, For The World!')">Sign In</button></div></header>
+<div class="hero" id="hero">
+<h1><span>β BETA SEARCH</span></h1>
+<p>Search Smarter. Made in Nairobi, For The World. 🇰🇪</p>
+<div class="search-wrap"><span>🔍</span><input id="q" placeholder="Ask anything - try 'Who is Messi?' or 'Best phone under $500'" onkeydown="if(event.key==='Enter')doSearch(this.value)"><button onclick="doSearch(document.getElementById('q').value)">Search</button></div>
+<div class="chips">
+<span class="chip" onclick="doSearch('weather in Nairobi')">🌤️ Weather in Nairobi</span>
+<span class="chip" onclick="doSearch('Messi vs Ronaldo')">⚽ Messi vs Ronaldo</span>
+<span class="chip" onclick="doSearch('iPhone vs Samsung')">📱 iPhone vs Samsung</span>
+<span class="chip" onclick="doSearch('French pirates')">🏴‍☠️ French pirates</span>
+<span class="chip" onclick="doSearch('100 USD to KSh')">💱 100 USD to KSh</span>
+<span class="chip" onclick="doSearch('Elon Musk')">🚀 Elon Musk</span>
+</div>
+</div>
+<div class="main">
+<div id="results">
+<div class="card"><h3>🔥 Trending in Kenya</h3><p>• BETA AI designs houses • Messi scores again • New phones under KSh 50,000 • Nairobi weather • Harambee Stars</p></div>
+<div class="card"><h3>⭐ Famous People - Click to Search</h3><div class="grid" id="people"></div></div>
+<div class="card"><h3>💡 How to Search Like a Pro</h3><p><b>"exact phrase"</b> - exact match<br><b>site:example.com</b> - only that site<br><b>-word</b> - exclude word<br><b>filetype:pdf</b> - only PDFs<br><b>$100...$500</b> - price range</p></div>
+</div>
+<div>
+<div class="card kp" id="kp"><h3>👤 Knowledge Panel</h3><p>Search for a famous person to see their photo, facts, stats and bio here.</p><p style="margin-top:10px;color:#666">Try: Messi, Ronaldo, MrBeast, Elon Musk, Beyonce</p></div>
+<div class="card"><h3>🌤️ Live Tools</h3><p><b>Nairobi:</b> 22°C Sunny<br><b>100 USD = 12,950 KSh</b><br><b>Calculator:</b> <input id="calc" placeholder="e.g. 25*4" style="padding:6px;width:120px" onkeydown="if(event.key==='Enter')calc()"> <span id="calcOut"></span></p></div>
+<div class="card"><h3>🛡️ SafeSearch: ON</h3><p>Family-safe results. Made in Nairobi 🇰🇪<br>beta-search.pages.dev</p></div>
+</div>
+</div>
+<footer>Made in Nairobi 🇰🇪 | BETA SEARCH - Try It Free | About • Privacy • Terms</footer>
+<script>
+const people=[
+{name:"Lionel Messi",role:"Footballer",team:"Inter Miami",born:"1987, Argentina",fact:"8x Ballon d'Or, World Cup Winner 2022"},
+{name:"Cristiano Ronaldo",role:"Footballer",team:"Al Nassr",born:"1985, Portugal",fact:"Most goals in football history, 5x Ballon d'Or"},
+{name:"Kylian Mbappe",role:"Footballer",team:"Real Madrid",born:"1998, France",fact:"World Cup Winner 2018, Fastest striker"},
+{name:"Erling Haaland",role:"Footballer",team:"Man City",born:"2000, Norway",fact:"Premier League Golden Boot"},
+{name:"MrBeast",role:"Streamer / YouTuber",team:"YouTube 300M+",born:"1998, USA",fact:"Biggest YouTuber in the world"},
+{name:"Kai Cenat",role:"Streamer",team:"Twitch",born:"2001, USA",fact:"Most subscribed Twitch streamer"},
+{name:"Elon Musk",role:"Business Owner",team:"Tesla, SpaceX, X",born:"1971, South Africa",fact:"Richest person, rockets & electric cars"},
+{name:"Mark Zuckerberg",role:"Business Owner",team:"Meta",born:"1984, USA",fact:"Founder of Facebook / Meta"},
+{name:"Beyonce",role:"Singer / Actor",team:"Music",born:"1981, USA",fact:"Most Grammy Awards ever"},
+{name:"Taylor Swift",role:"Singer",team:"Music",born:"1989, USA",fact:"Eras Tour - biggest tour ever"},
+{name:"IShowSpeed",role:"Streamer",team:"YouTube",born:"2005, USA",fact:"Famous for football & reactions"},
+{name:"Dwayne Johnson",role:"Actor",team:"Hollywood",born:"1972, USA",fact:"The Rock - WWE to Hollywood"},
+];
+function renderPeople(){
+ document.getElementById('people').innerHTML=people.map((p,i)=>`<div class="person" onclick="doSearch('${p.name}')"><div style="font-size:36px">👤</div><b>${p.name}</b><br><small>${p.role}<br>${p.team}</small></div>`).join('');
+}
+function calc(){try{document.getElementById('calcOut').textContent=' = '+eval(document.getElementById('calc').value)}catch(e){document.getElementById('calcOut').textContent=' Error'}}
+function showHome(){location.reload()}
+function doSearch(query){
+ if(!query) query=document.getElementById('q').value;
+ if(!query) return;
+ document.getElementById('q').value=query;
+ let q=query.toLowerCase();
+ let person=people.find(p=>q.includes(p.name.toLowerCase().split(' ')[0])||q.includes(p.name.toLowerCase()));
+ let aiText=`<b>AI Overview - Powered by Gemini 4 Hydrogen</b><br><br>`;
+ if(q.includes('messi')) aiText+=`Lionel Messi is an Argentine footballer, widely considered the greatest of all time. 8x Ballon d'Or winner, World Cup winner 2022 with Argentina. Currently at Inter Miami. Known for dribbling, vision and left foot.`;
+ else if(q.includes('ronaldo')) aiText+=`Cristiano Ronaldo is a Portuguese footballer, 5x Ballon d'Or winner, all-time top scorer in men's football. Currently at Al Nassr. Known for speed, jumping and finishing.`;
+ else if(q.includes('weather')) aiText+=`Nairobi today: 22°C, Sunny, Light wind. Tomorrow: 23°C, Partly cloudy. Best time to go out: morning.`;
+ else if(q.includes('iphone')&&q.includes('samsung')) aiText+=`<table border="1" cellpadding="8" style="border-collapse:collapse;width:100%"><tr><th>Phone</th><th>Camera</th><th>Battery</th><th>Price</th></tr><tr><td>iPhone 16</td><td>48MP</td><td>Good</td><td>~$799</td></tr><tr><td>Samsung S24</td><td>50MP</td><td>Excellent</td><td>~$799</td></tr></table><br>Winner: Samsung for battery, iPhone for video.`;
+ else if(q.includes('french pirate')||q.includes('pirate')) aiText+=`Famous French pirates: Francois l'Olonnais (cruelest pirate), Jean Bart (naval hero), Jeanne de Clisson (Lioness of Brittany), Montbars the Exterminator. They raided Spanish ships in the Caribbean in 1600s-1700s.`;
+ else if(q.includes('usd')||q.includes('ksh')||q.includes('currency')) aiText+=`100 USD = 12,950 KSh (approx). 1 USD = 129.5 KSh. Rates change daily - check Central Bank of Kenya.`;
+ else aiText+=`<b>Answer for "${query}":</b><br>BETA SEARCH found this for you. ${query} is a popular topic. Here are key facts, related questions and best sources below. Try searching for Messi, Ronaldo, Weather Nairobi, or iPhone vs Samsung for a full AI overview.`;
+ let kpHtml=`<h3>👤 Knowledge Panel</h3><p>Search for a famous person to see details.</p>`;
+ if(person){kpHtml=`<h3>${person.name}</h3><div style="font-size:60px;text-align:center">👤</div><p><b>Role:</b> ${person.role}<br><b>Team:</b> ${person.team}<br><b>Born:</b> ${person.born}<br><b>Fact:</b> ${person.fact}</p>`}
+ document.getElementById('results').innerHTML=`
+ <div class="card ai"><h3>🤖 ${aiText}</h3><p style="margin-top:10px;color:#666;font-size:13px">Sources: Wikipedia, BBC, ESPN • AI Overview may contain errors</p></div>
+ <div class="card result"><h3>Featured Snippet: ${query}</h3><small>beta-search.pages.dev • wikipedia.org</small><p style="margin-top:8px">${aiText.replace(/<[^>]*>/g,'').slice(0,300)}...</p></div>
+ <div class="card"><h3>❓ People Also Ask</h3><p>▸ Who is ${query}?<br>▸ Why is ${query} famous?<br>▸ What is the latest news about ${query}?<br>▸ How much is ${query} worth?</p></div>
+ <div class="card result"><h3>${query} - Wikipedia</h3><small>en.wikipedia.org › wiki › ${query.replace(/ /g,'_')}</small><p>Full facts, history and biography of ${query}. Updated 2026.</p></div>
+ <div class="card result"><h3>${query} - Latest News & Videos</h3><small>news.google.com • youtube.com</small><p>Watch latest videos and news about ${query} in Kenya and worldwide.</p></div>
+ `;
+ document.getElementById('kp').innerHTML=kpHtml;
+ window.scrollTo({top:0,behavior:'smooth'});
+}
+renderPeople();
+</script>
+</body>
+</html>
